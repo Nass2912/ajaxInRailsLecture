@@ -1,0 +1,18 @@
+<h1><%= @restaurant.name %> <small><%= @restaurant.address %></small></h1>
+
+<h2><%= pluralize @restaurant.reviews.size, "review" %></h2>
+
+<div data-controller="insert-in-list" data-insert-in-list-position-value="beforeBegin">
+  <%= render partial: "reviews/form", locals: { restaurant: @restaurant, review: @review } %>
+  <% if @restaurant.reviews.blank? %>
+    Be the first to leave a review for <%= @restaurant.name %>
+  <% else %>
+    <div  data-insert-in-list-target="items">
+      <% @restaurant.reviews.each do |review| %>
+      <%= render partial: "restaurants/review", locals: { review: review} %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= link_to "Back to all restaurants", restaurants_path %>
+</div>
